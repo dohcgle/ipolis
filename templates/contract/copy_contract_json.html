@@ -1,0 +1,2753 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<div class="container" style="margin-top: 100px" id="app">
+    <section class="accordion_two_section ">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 accordionTwo">
+                    <div class="panel-group bg-white p-4">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-lg-12 m-auto">
+                                        <div class="form_wrapper bg-white ">
+                                            <h5 class="text-center text-uppercase"> Transport vositalari egalarining
+                                                fuqarolik javobgarligini majburiy sug‘urta qilish. </h5> <br>
+                                            <!--Start calculation -->
+                                            <div class="alert alert-secondary text-center" role="alert">
+                                                Ma'lumotlar to'liq kelmasa "aniqlash" tugmasini qayta bosish tavsiya
+                                                etiladi.
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!-- /.panel-default -->
+                    </div>
+                    <!--end of /.panel-group-->
+                </div>
+            </div>
+        </div>
+        <!--end of /.container-->
+    </section>
+
+    <!-- Start Calculation -->
+    <section class="accordion_two_section ">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 accordionTwo">
+                    <div class="panel-group bg-white p-4">
+                        <div class="panel panel-default">
+                            <h5> 1. Sug'urta polisi kalkulyatori </h5> <br>
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-lg-12 m-auto">
+                                        <div class="form_wrapper bg-white ">
+                                            <!--Start calculation -->
+
+                                            <div class="row">
+                                                <div class="col-md-4  col-sm-12">
+                                                    <div class="field text-black ">
+                                                        <label for="inputState">Transport turi</label>
+                                                        <select id="inputState"
+                                                                class="form-control small" v-model="TB">
+                                                            <option>Tanlang</option>
+                                                            <option :value="TB_car">Yengil avtomobil
+                                                            </option>
+                                                            <option :value="TB_truck">Yuk mashinasi
+                                                            </option>
+                                                            <option :value="TB_bus">Avtobus yoki
+                                                                mikroavtobus
+                                                            </option>
+                                                            <option :value="TB_other">Boshqalar</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4  col-sm-6">
+                                                    <div class="field text-black">
+                                                        <div class="">
+                                                            <label>Polis boshlanish vaqti</label>
+                                                            <input type="date" id="checkInDate"
+                                                                   class="form-control" name="startDate"
+
+                                                                   required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4  col-sm-6">
+                                                    <div class="field">
+                                                        <div>
+                                                            <label>Polis tugash vaqti</label>
+                                                            <input type="date" id="checkOutDate" name="endDate"
+                                                                   class="form-control" readonly required>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4 col-lg-12  col-sm-6">
+                                                    <div class="field">
+                                                        <p class="pb-2">Ro‘yxatga olingan viloyat</p>
+                                                        <div class="switch-field  d-md-flex m-0  row   ">
+                                                            <div class="col-lg-6 pl-0">
+                                                                <input type="radio" id="city"
+                                                                       :value="KT_city" name="region"
+                                                                       v-model="KT" checked>
+                                                                <label for="city" id="cityLabel">Toshkent
+                                                                    sh/Toshkent
+                                                                    vil</label>
+                                                            </div>
+                                                            <div class="col-lg-6 pr-0  ">
+                                                                <input type="radio" id="village"
+                                                                       :value="KT_other"
+                                                                       name="region"
+                                                                       v-model="KT">
+                                                                <label for="village">Boshqa
+                                                                    hududlar</label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4  col-sm-6">
+                                                    <div class="field">
+                                                        <p class="pb-2">Haydovchilar soni</p>
+                                                        <div class="switch-field m-0">
+                                                            <input id="limita" type="radio"
+                                                                   :value="KBO_limit" name="driver"
+                                                                   v-model="KBO">
+                                                            <label for="limita">Cheklangan</label>
+                                                            <input id="unlimit" type="radio"
+                                                                   :value="KBO_unlimit"
+                                                                   v-model="KBO" name="drivera">
+                                                            <label for="unlimit">Cheklanmagan</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-4  col-sm-6">
+                                                    <div class="field   ">
+                                                        <p class="pb-2">Sug'urta davri</p>
+                                                        <div class="switch-field m-0">
+                                                            <input id="year" type="radio"
+                                                                   :value="INSP_year" v-model="INSP"
+                                                                   checked required>
+                                                            <label for="year">1 yil</label>
+                                                            <input id="month" type="radio"
+                                                                   :value="INSP_six_m"
+                                                                   v-model="INSP">
+                                                            <label for="month">6 oy</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+
+                                                <div class="col-md-4  col-sm-6">
+                                                    <div class="field   ">
+                                                        <p class="pb-2">Shaxs turi</p>
+                                                        <div class="switch-field m-0">
+                                                            <input id="jismoniy" type="radio"
+                                                                   v-model="shaxs"
+                                                                   :value="jismoniy" checked required>
+                                                            <label for="jismoniy">Jismoniy shaxs</label>
+                                                            <input id="yuridik" type="radio"
+                                                                   v-model="shaxs" name="shaxs"
+                                                                   :value="yuridik">
+                                                            <label for="yuridik">Yuridik shaxs</label>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <button class=" btn btn_polisy" @click="calculation">Hisoblash
+                                                <i class="fas fa-chevron-right"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!-- /.panel-default -->
+                    </div>
+                    <!--end of /.panel-group-->
+                </div>
+            </div>
+        </div>
+        <!--end of /.container-->
+    </section>
+    <!-- END Calculation -->
+
+    <h6 class="alert alert-info">
+        <span v-if="KBO === 3">Cheklanmagan |</span>
+        <span v-else-if="KBO === 1">Cheklangan |</span>
+
+        <span>[[shaxs]] | </span>
+        <span>[[ insurancePremium ]] so'm</span>
+    </h6>
+
+    <section class="accordion_two_section ">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12 accordionTwo">
+                    <div class="panel-group bg-white p-4">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div class="row">
+                                    <div class="col-lg-12 m-auto">
+                                        <div class="form_wrapper bg-white ">
+                                            <h5 class="text-center text-uppercase"> Transport vositalari egalarining
+                                                fuqarolik javobgarligini majburiy sug‘urta qilish. </h5> <br>
+                                            <!--Start calculation -->
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-sm-3">
+                                            <div class="field">
+                                                <label for="govnumber">Davlat raqami</label>
+                                                <input required id="govnumber" type="text"
+                                                       class="form-control text-uppercase"
+                                                       placeholder="01A123BC" maxlength="8" v-model="govNumber"
+                                                >
+                                            </div>
+                                        </div>
+                                        <div class=" col-sm-3">
+                                            <div class="field">
+                                                <label for="texseria">Texpasport Seria</label>
+                                                <input required id="texseria" type="text"
+                                                       class="text-uppercase form-control"
+                                                       placeholder="1234567" maxlength="3"
+                                                       v-model="techPassportSeria"
+                                                >
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="field">
+                                                <label for="texnumber"> Texpasport Raqam</label>
+                                                <input required id="texnumber" type="text" class="form-control"
+                                                       placeholder="AAF" maxlength="7"
+                                                       data-inputmask="'mask': '9999999' "
+                                                       v-model="techPassportNumber"
+                                                >
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <label>Izlash</label> <br>
+                                            <button class="btn btn_polisy w-100" type="button" @click="vehicle">
+                                                <i class="fas fa-search"></i> Aniqlash
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!-- /.panel-default -->
+                    </div>
+                    <!--end of /.panel-group-->
+                </div>
+            </div>
+        </div>
+        <!--end of /.container-->
+    </section>
+
+
+    <section class=" py-4 ">
+        <!--START TRANSPORT -->
+        <div>
+            <form id="my-profile" method="POST" action=".">
+                {% csrf_token %}
+
+                <div class="col-md-4 col-lg-12  col-sm-6">
+                    <div class="field">
+                        <p class="pb-2">To'lov tizimini tanlang</p>
+                        <div class="switch-field    m-0  row   ">
+                            <div class="col-lg-6 pl-0">
+                                <input type="radio" checked required name="payment_type"
+                                       value="Payme" v-model="payment_type"
+                                       id="flexRadioDefaultaa"
+                                >
+
+                                <label for="flexRadioDefaultaa"> Payme </label>
+                            </div>
+                            <div class="col-lg-6 pr-0  ">
+                                <input disabled type="radio" name="payment_type"
+                                       value="Click" v-model="payment_type"
+                                       id="flexRadioDefaultcc">
+                                <label for="flexRadioDefaultcc"> Click </label>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+
+                <div class="row" id="person" v-if="shaxs === 'Jismoniy shaxs'">
+                    <hr>
+                    <div class="col-12">
+                        <h3> jismoniy shaxs</h3>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="field">
+                            <label>pinfl</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="personPinfl"
+                                   v-model="pinfl"
+                                   name="applicant[person[passportData[pinfl]]]"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="field">
+                            <label>seria</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="personSeria"
+                                   v-model="passportSeries"
+                                   name="applicant[person[passportData[seria]]]"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="field">
+                            <label>number</label>
+                            <input type="text"
+                                   class="form-control"
+                                   v-model="passportNumber"
+                                   id="personNumber"
+                                   name="applicant[person[passportData[number]]]"
+                                   required>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <label>Izlash</label> <br>
+                        <button class="btn btn_polisy w-100" type="button" @click="person">
+                            <i class="fas fa-search"></i> Aniqlash
+                        </button>
+                    </div>
+
+                    <div class="col-sm-3">
+                        <div class="field">
+                            <label>issuedBy</label>
+                            <input type="text"
+                                   class="form-control"
+                                   id="personissuedBy"
+                                   name="applicant[person[passportData[issuedBy]]]"
+                                   v-model="issuedBy"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="field">
+                            <label>issueDate</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="applicant[person[passportData[issueDate]]]"
+                                   v-model="personStartDate"
+                                   id="personissueDate"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3  ">
+                        <div class="field">
+                            <label>firstname</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="applicant[person[fullName[firstname]]]"
+                                   id="personFirsName"
+                                   v-model="firstNameLatin"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="field">
+                            <label>lastname</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="applicant[person[fullName[lastname]]]"
+                                   v-model="lastNameLatin"
+                                   id="personLastName"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="field">
+                            <label>middlename</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="applicant[person[fullName[middlename]]]"
+                                   v-model="middleNameLatin"
+                                   id="personMiddleName"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="field">
+                            <label>phoneNumber</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="applicant[person[phoneNumber]]"
+                                   v-model="phoneNumber"
+                                   id="personphoneNumber"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="field">
+                            <label>gender</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="applicant[person[gender]]"
+                                   v-model="gender"
+                                   id="personGender"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="field">
+                            <label>birthDate</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="applicant[person[birthDate]]"
+                                   v-model="birthDate"
+                                   id="personBirthDate"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="field">
+                            <label>regionId</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="applicant[person[regionId]]"
+                                   v-model="regionId"
+                                   id="personRegionId"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="field">
+                            <label>districtId</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="applicant[person[districtId]]"
+                                   v-model="districtId"
+                                   id="personDistrictId"
+                                   required>
+                        </div>
+                    </div>
+                    <input class="d-none" type="text" value="null" name="applicant[organization]">
+                </div>
+
+
+
+                <div class="row" id=" organizationDiv" v-else-if="shaxs === 'Yuridik shaxs'">
+                    <div class="   w-100">
+                        <div class="col-12">
+                            <h3>Yuridik shaxs</h3>
+                        </div>
+
+
+                        <!--                        <input class="d-none" type="text" id="organizationNull">-->
+                        <input class="d-none" type="text" value="null" name="applicant[person]">
+                        <div class="col-sm-3">
+                            <div class="field">
+                                <label>[organization[inn]</label>
+                                <input type="text"
+                                       id="organizationInn"
+                                       class="form-control"
+                                       name="applicant[organization[inn]]"
+                                       required>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="field">
+                                <label>[organization[name]</label>
+                                <input type="text"
+                                       id="organizationName"
+                                       class="form-control"
+                                       name="applicant[organization[name]]"
+                                       required>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="field">
+                                <label>organization[phoneNumber]</label>
+                                <input type="text"
+                                       id="organizationPhoneNumber"
+                                       class="form-control"
+                                       name="applicant[organization[phoneNumber]]"
+                                       v-model="organizationPhoneNumber"
+                                       required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                
+                <div class="row" id="ownerPerson" v-if="shaxs === 'Jismoniy shaxs'">
+                    <div class="col-12">
+                        <h3>Jismoniy shaxs</h3>
+                    </div>
+                    <!--                    <input class="d-none" type="text" id="ownerPersonNull">-->
+
+                    <div class="col-sm-3">
+                        <div class="field">
+                            <label>person[address</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="applicant[address]"
+                                   v-model="address"
+                                   id="ownerPersonAdress"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="field">
+                            <label>person[email]</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="applicant[email]"
+                                   v-model="email"
+                                   id="ownerPersonEmail"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="field">
+                            <label>[owner[person[passportData[pinfl]]</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="owner[person[passportData[pinfl]]]"
+                                   v-model="ownerPinfl"
+                                   id="ownerPersonPinfl"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="field">
+                            <label>[owner[person[passportData[seria]]</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="owner[person[passportData[seria]]]"
+                                   v-model="passportSeries"
+                                   id="ownerPersonSeria"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="field">
+                            <label>[owner[person[passportData[number]]</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="owner[person[passportData[number]]]"
+                                   v-model="passportNumber"
+                                   id="ownerPersonNumber"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="field">
+                            <label>[owner[person[passportData[issuedBy]]</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="owner[person[passportData[issuedBy]]]"
+                                   v-model="issuedBy"
+                                   id="ownerpersonIssuedBy"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="field">
+                            <label>[owner[person[passportData[issueDate]]</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="owner[person[passportData[issueDate]]]"
+                                   v-model="personStartDate"
+                                   id="ownerpersonStartDate"
+                                   required>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="field">
+                            <label>[owner[person[fullName[firstname]]</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="owner[person[fullName[firstname]]]"
+                                   v-model="firstNameLatin"
+                                   id="ownerPersonFirstName"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="field">
+                            <label>[owner[person[fullName[lastname]]</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="owner[person[fullName[lastname]]]"
+                                   v-model="lastNameLatin"
+                                   id="ownerPersonLastName"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="field">
+                            <label>[owner[person[fullName[middlename]]]</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="owner[person[fullName[middlename]]]"
+                                   v-model="middleNameLatin"
+                                   id="ownerPersonMiddleName"
+                                   required>
+                        </div>
+                    </div>
+                    <input type="text" class="d-none" value="empty" name="owner[organization]">
+                </div>
+                <div class="row" id="organizationOwner" v-else-if="shaxs === 'Yuridik shaxs'">
+                    <div class="  w-100  ">
+                        <div class="col-12">
+                            <h3>Yuridik shaxs</h3>
+                        </div>
+                        <input class="d-none" type="text" value="null" name="owner[person]">
+
+                        <div class="col-sm-3">
+                            <div class="field">
+                                <label>[owner[organization[inn]]]</label>
+                                <input type="text"
+                                       id="ownerOrganizationInn"
+                                       class="form-control"
+                                       name="owner[organization[inn]]]"
+                                       required>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="field">
+                                <label>[owner[organization[name]]]]</label>
+                                <input type="text"
+                                       id="ownerOrganizationName"
+                                       class="form-control"
+                                       name="owner[organization[name]]"
+                                       required>
+                            </div>
+                        </div>
+                        <hr>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-3">
+                        <div class="field">
+                            <label>[applicantIsOwner]]"</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="owner[applicantIsOwner]"
+                                   v-model="applicantIsOwner"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="field">
+                            <label>[details[issueDate]]"</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="details[issueDate]"
+                                   v-model="policyStartDate"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="field">
+                            <label>details[startDate]]]"</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="details[startDate]"
+                                   v-model="policyStartDate"
+                            >
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="field">
+                            <label>details[endDate]]]"</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="details[endDate]"
+                                   id="polisEndDate"
+                                   v-model="policyEndDate"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="field">
+                            <label>details[driverNumberRestriction]]]"</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="details[driverNumberRestriction]"
+                                   v-model="driverNumberRestriction"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="field">
+                            <label>details[specialNote]]]"</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="details[specialNote]"
+                                   value="Qayta berish"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="field">
+                            <label>details[insuredActivityType]]]"</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="details[insuredActivityType]"
+                                   value="Tadbirkor"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="field">
+                            <label>cost[discountId]]]"</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="cost[discountId]"
+                                   value="1"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="field">
+                            <label>cost[discountSum]]]"</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="cost[discountSum]"
+                                   value="0"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="field">
+                            <label>cost[insurancePremium]]]"</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="cost[insurancePremium]"
+                                   v-model="insurancePremium"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="field">
+                            <label>cost[sumInsured]]]"</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="cost[sumInsured]"
+                                   v-model="sumInsured"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="field">
+                            <label>cost[contractTermConclusionId]]]"</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="cost[contractTermConclusionId]"
+                                   value="1"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="field">
+                            <label>cost[useTerritoryId]]]"</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="cost[useTerritoryId]"
+                                   v-model="useTerritoryId"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="field">
+                            <label>cost[commission]]]"</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="cost[commission]"
+                                   value="0"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="field">
+                            <label>cost[insurancePremiumPaidToInsurer]]]"</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="cost[insurancePremiumPaidToInsurer]"
+                                   value="28000"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="field">
+                            <label>cost[seasonalInsuranceId]]]"</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="cost[seasonalInsuranceId]"
+                                   value="1"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="field">
+                            <label>vehicle[techPassport[number]]]"</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="vehicle[techPassport[number]]"
+                                   v-model="techPassportNumber"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="field">
+                            <label>vehicle[techPassport[seria]]]"</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="vehicle[techPassport[seria]]"
+                                   v-model="techPassportSeria"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="field">
+                            <label>vehicle[techPassport[issueDate]]]"</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="vehicle[techPassport[issueDate]]"
+                                   v-model="techPassportIssueDate"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="field">
+                            <label>modelCustomName]</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="vehicle[modelCustomName]"
+                                   v-model="modelName"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="field">
+                            <label>vehicle[engineNumber]]</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="vehicle[engineNumber]"
+                                   v-model="engineNumber"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="field">
+                            <label>vehicle[typeId]]</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="vehicle[typeId]"
+                                   v-model="vehicleTypeId"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="field">
+                            <label>vehicle[issueYear]]</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="vehicle[issueYear]"
+                                   v-model="issueYear"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="field">
+                            <label>vehicle[govNumber]]</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="vehicle[govNumber]"
+                                   v-model="govNumber"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="field">
+                            <label>vehicle[bodyNumber]]</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="vehicle[bodyNumber]"
+                                   v-model="bodyNumber"
+                                   required>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="field">
+                            <label>vehicle[regionId]]</label>
+                            <input type="text"
+                                   class="form-control"
+                                   name="vehicle[regionId]"
+                                   v-model="regionId"
+                                   required>
+                        </div>
+                    </div>
+
+
+                    <section v-if="KBO === 3">
+                        <h2>Cheklanmagan polis sada</h2>
+
+
+                    </section>
+                    <section class="add-drivers" v-else-if="KBO === 1">
+                        <div class="row">
+
+                            <!-- Start driver1 -->
+                            <div class="col-12">
+                                <h1>Birinchi haydovchi</h1>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][passportData[pinfl]]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][passportData[pinfl]]"
+                                           v-model="driver1_pinfl"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][passportData[seria]]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][passportData[seria]]"
+                                           v-model="driver1_passportSeries"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][passportData[number]]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][passportData[number]]"
+                                           v-model="driver1_passportNumber"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][passportData[issuedBy]]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][passportData[issuedBy]]"
+                                           v-model="driver1_issuedBy"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][passportData[issueDate]]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][passportData[issueDate]]"
+                                           v-model="driver1_issueDate"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][fullName[firstname]]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][fullName[firstname]]"
+                                           v-model="driver1_first_name"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][fullName[lastname]]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][fullName[lastname]]"
+                                           v-model="driver1_last_name"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][fullName[middlename]]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][fullName[middlename]]"
+                                           v-model="driver1_middle_name"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][licenseNumber]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][licenseNumber]"
+                                           v-model="driver1_lic_number"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][licenseSeria]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][licenseSeria]"
+                                           v-model="driver1_lic_seria"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][relative]</label>
+                                    <select class="form-control" readonly name="drivers[][relative]">
+                                        <option :value="RLT_0">Tanlang</option>
+                                        <option :value="RLT_1">Ota</option>
+                                        <option :value="RLT_2">Ona</option>
+                                        <option :value="RLT_3">Er</option>
+                                        <option :value="RLT_4">Xotin</option>
+                                        <option :value="RLT_5">O'g'il</option>
+                                        <option :value="RLT_6">Qiz</option>
+                                        <option :value="RLT_7">Aka</option>
+                                        <option :value="RLT_8">Uka</option>
+                                        <option :value="RLT_9">Opa</option>
+                                        <option :value="RLT_10">Singil</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][birthDate]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][birthDate]"
+                                           v-model="driver1_birthDate"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][licenseIssueDate]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][licenseIssueDate]"
+                                           v-model="driver1_licenseIssueDate"
+                                           required>
+                                </div>
+                            </div>
+                            <!-- End driver1 -->
+
+                            <div class="col-12">
+                                <h1>Ikkinchi haydovchi</h1>
+                            </div>
+                            <!-- Start driver2 -->
+
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][passportData[pinfl]]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][passportData[pinfl]]"
+                                           v-model="driver2_pinfl"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][passportData[seria]]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][passportData[seria]]"
+                                           v-model="driver2_passportSeries"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][passportData[number]]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][passportData[number]]"
+                                           v-model="driver2_passportNumber"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][passportData[issuedBy]]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][passportData[issuedBy]]"
+                                           v-model="driver2_issuedBy"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][passportData[issueDate]]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][passportData[issueDate]]"
+                                           v-model="driver2_issueDate"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][fullName[firstname]]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][fullName[firstname]]"
+                                           v-model="driver2_first_name"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][fullName[lastname]]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][fullName[lastname]]"
+                                           v-model="driver2_last_name"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][fullName[middlename]]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][fullName[middlename]]"
+                                           v-model="driver2_middle_name"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][licenseNumber]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][licenseNumber]"
+                                           v-model="driver2_lic_number"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][licenseSeria]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][licenseSeria]"
+                                           v-model="driver2_lic_seria"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][relative]</label>
+                                    <select class="form-control" readonly name="drivers[][relative]" id="">
+                                        <option :value="RLT_0">Tanlang</option>
+                                        <option :value="RLT_1">Ota</option>
+                                        <option :value="RLT_2">Ona</option>
+                                        <option :value="RLT_3">Er</option>
+                                        <option :value="RLT_4">Xotin</option>
+                                        <option :value="RLT_5">O'g'il</option>
+                                        <option :value="RLT_6">Qiz</option>
+                                        <option :value="RLT_7">Aka</option>
+                                        <option :value="RLT_8">Uka</option>
+                                        <option :value="RLT_9">Opa</option>
+                                        <option :value="RLT_10">Singil</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][birthDate]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][birthDate]"
+                                           v-model="driver2_birthDate"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][licenseIssueDate]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][licenseIssueDate]"
+                                           v-model="driver2_licenseIssueDate"
+                                           required>
+                                </div>
+                            </div>
+                            <!-- End driver2 -->
+
+                            <!-- Start driver3 -->
+
+                            <div class="col-12">
+                                <h1>Uchinchi haydovchi</h1>
+                            </div>
+                            <!-- Start driver2 -->
+
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][passportData[pinfl]]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][passportData[pinfl]]"
+                                           v-model="driver3_pinfl"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][passportData[seria]]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][passportData[seria]]"
+                                           v-model="driver2_passportSeries"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][passportData[number]]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][passportData[number]]"
+                                           v-model="driver3_passportNumber"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][passportData[issuedBy]]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][passportData[issuedBy]]"
+                                           v-model="driver3_issuedBy"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][passportData[issueDate]]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][passportData[issueDate]]"
+                                           v-model="driver3_issueDate"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][fullName[firstname]]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][fullName[firstname]]"
+                                           v-model="driver3_first_name"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][fullName[lastname]]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][fullName[lastname]]"
+                                           v-model="driver3_last_name"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][fullName[middlename]]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][fullName[middlename]]"
+                                           v-model="driver3_middle_name"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][licenseNumber]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][licenseNumber]"
+                                           v-model="driver3_lic_number"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][licenseSeria]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][licenseSeria]"
+                                           v-model="driver3_lic_seria"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][relative]</label>
+                                    <select class="form-control" readonly name="drivers[][relative]">
+                                        <option :value="RLT_0">Tanlang</option>
+                                        <option :value="RLT_1">Ota</option>
+                                        <option :value="RLT_2">Ona</option>
+                                        <option :value="RLT_3">Er</option>
+                                        <option :value="RLT_4">Xotin</option>
+                                        <option :value="RLT_5">O'g'il</option>
+                                        <option :value="RLT_6">Qiz</option>
+                                        <option :value="RLT_7">Aka</option>
+                                        <option :value="RLT_8">Uka</option>
+                                        <option :value="RLT_9">Opa</option>
+                                        <option :value="RLT_10">Singil</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][birthDate]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][birthDate]"
+                                           v-model="driver3_birthDate"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][licenseIssueDate]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][licenseIssueDate]"
+                                           v-model="driver3_licenseIssueDate"
+                                           required>
+                                </div>
+                            </div>
+                            <!-- End driver3 -->
+
+                            <!-- Start driver4 -->
+
+                            <div class="col-12">
+                                <h1>To'rtinchi haydovchi</h1>
+                            </div>
+                            <!-- Start driver2 -->
+
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][passportData[pinfl]]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][passportData[pinfl]]"
+                                           v-model="driver4_pinfl"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][passportData[seria]]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][passportData[seria]]"
+                                           v-model="driver4_passportSeries"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][passportData[number]]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][passportData[number]]"
+                                           v-model="driver4_passportNumber"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][passportData[issuedBy]]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][passportData[issuedBy]]"
+                                           v-model="driver4_issuedBy"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][passportData[issueDate]]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][passportData[issueDate]]"
+                                           v-model="driver4_issueDate"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][fullName[firstname]]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][fullName[firstname]]"
+                                           v-model="driver4_first_name"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][fullName[lastname]]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][fullName[lastname]]"
+                                           v-model="driver4_last_name"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][fullName[middlename]]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][fullName[middlename]]"
+                                           v-model="driver4_middle_name"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][licenseNumber]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][licenseNumber]"
+                                           v-model="driver4_lic_number"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][licenseSeria]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][licenseSeria]"
+                                           v-model="driver4_lic_seria"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][relative]</label>
+                                    <select class="form-control" readonly name="drivers[][relative]">
+                                        <option :value="RLT_0">Tanlang</option>
+                                        <option :value="RLT_1">Ota</option>
+                                        <option :value="RLT_2">Ona</option>
+                                        <option :value="RLT_3">Er</option>
+                                        <option :value="RLT_4">Xotin</option>
+                                        <option :value="RLT_5">O'g'il</option>
+                                        <option :value="RLT_6">Qiz</option>
+                                        <option :value="RLT_7">Aka</option>
+                                        <option :value="RLT_8">Uka</option>
+                                        <option :value="RLT_9">Opa</option>
+                                        <option :value="RLT_10">Singil</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][birthDate]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][birthDate]"
+                                           v-model="driver2_birthDate"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][licenseIssueDate]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][licenseIssueDate]"
+                                           v-model="driver4_licenseIssueDate"
+                                           required>
+                                </div>
+                            </div>
+                            <!-- End driver4 -->
+
+                            <!-- Start driver5 -->
+
+                            <div class="col-12">
+                                <h1>Beshinchi haydovchi</h1>
+                            </div>
+                            <!-- Start driver2 -->
+
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][passportData[pinfl]]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][passportData[pinfl]]"
+                                           v-model="driver5_pinfl"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][passportData[seria]]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][passportData[seria]]"
+                                           v-model="driver5_passportSeries"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][passportData[number]]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][passportData[number]]"
+                                           v-model="driver5_passportNumber"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][passportData[issuedBy]]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][passportData[issuedBy]]"
+                                           v-model="driver5_issuedBy"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][passportData[issueDate]]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][passportData[issueDate]]"
+                                           v-model="driver5_issueDate"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][fullName[firstname]]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][fullName[firstname]]"
+                                           v-model="driver5_first_name"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][fullName[lastname]]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][fullName[lastname]]"
+                                           v-model="driver5_last_name"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][fullName[middlename]]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][fullName[middlename]]"
+                                           v-model="driver5_middle_name"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][licenseNumber]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][licenseNumber]"
+                                           v-model="driver5_lic_number"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][licenseSeria]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][licenseSeria]"
+                                           v-model="driver5_lic_seria"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][relative]</label>
+                                    <select class="form-control" readonly name="drivers[][relative]">
+                                        <option :value="RLT_0">Tanlang</option>
+                                        <option :value="RLT_1">Ota</option>
+                                        <option :value="RLT_2">Ona</option>
+                                        <option :value="RLT_3">Er</option>
+                                        <option :value="RLT_4">Xotin</option>
+                                        <option :value="RLT_5">O'g'il</option>
+                                        <option :value="RLT_6">Qiz</option>
+                                        <option :value="RLT_7">Aka</option>
+                                        <option :value="RLT_8">Uka</option>
+                                        <option :value="RLT_9">Opa</option>
+                                        <option :value="RLT_10">Singil</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][birthDate]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][birthDate]"
+                                           v-model="driver5_birthDate"
+                                           required>
+                                </div>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="field">
+                                    <label>drivers[][licenseIssueDate]</label>
+                                    <input type="text"
+                                           class="form-control"
+                                           name="drivers[][licenseIssueDate]"
+                                           v-model="driver5_licenseIssueDate"
+                                           required>
+                                </div>
+                            </div>
+                            <!-- End driver5 -->
+
+                            <!--  modal driver1-->
+                            <hr>
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary d-inline-block w-auto m-2" data-toggle="modal"
+                                    data-target="#exampleModal">
+                                1-haydovchi
+                            </button>
+                            <!-- Modal driver 1 -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog"
+                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <label class="col-form-label">Seria:</label>
+                                                <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        v-model="driver1_passportSeries">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-form-label">Raqam:</label>
+                                                <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        v-model="driver1_passportNumber">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-form-label">Pinfl:</label>
+                                                <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        v-model="driver1_pinfl">
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary" @click="person1">Izlash
+                                                    1
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--                end modal driver 1-->
+
+                            <!--  modal driver2-->
+
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary d-inline-block w-auto m-2" data-toggle="modal"
+                                    data-target="#exampleModal2">
+                                2-haydovchi
+                            </button>
+                            <!-- Modal driver 1 -->
+                            <div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog"
+                                 aria-labelledby="exampleModalLabel2" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel2">Modal title</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <label class="col-form-label">Seria:</label>
+                                                <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        v-model="driver2_passportSeries">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-form-label">Raqam:</label>
+                                                <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        v-model="driver2_passportNumber">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-form-label">Pinfl:</label>
+                                                <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        v-model="driver2_pinfl">
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary" @click="person2">Izlash
+                                                    1
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--                end modal driver 2-->
+
+
+                            <!--  modal driver3-->
+
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary d-inline-block w-auto m-2" data-toggle="modal"
+                                    data-target="#exampleModal3">
+                                3-haydovchi
+                            </button>
+                            <div class="modal fade" id="exampleModal3" tabindex="-1" role="dialog"
+                                 aria-labelledby="exampleModalLabel3" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel3">Modal title</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <label class="col-form-label">Seria:</label>
+                                                <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        v-model="driver3_passportSeries">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-form-label">Raqam:</label>
+                                                <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        v-model="driver3_passportNumber">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-form-label">Pinfl:</label>
+                                                <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        v-model="driver3_pinfl">
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary" @click="person3">Izlash
+                                                    1
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--                end modal driver 3-->
+
+                            <!--  modal driver4-->
+
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary d-inline-block w-auto m-2" data-toggle="modal"
+                                    data-target="#exampleModal4">
+                                4-haydovchi
+                            </button>
+                            <div class="modal fade" id="exampleModal4" tabindex="-1" role="dialog"
+                                 aria-labelledby="exampleModalLabel4" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel4">Modal title</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <label class="col-form-label">Seria:</label>
+                                                <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        v-model="driver4_passportSeries">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-form-label">Raqam:</label>
+                                                <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        v-model="driver4_passportNumber">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-form-label">Pinfl:</label>
+                                                <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        v-model="driver4_pinfl">
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary" @click="person4">Izlash
+                                                    1
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!--                end modal driver 4-->
+
+                            <!--  modal driver2-->
+
+                            <!-- Button trigger modal -->
+                            <button type="button" class="btn btn-primary d-inline-block w-auto m-2" data-toggle="modal"
+                                    data-target="#exampleModal5">
+                                5-haydovchi
+                            </button>
+                            <div class="modal fade" id="exampleModal5" tabindex="-1" role="dialog"
+                                 aria-labelledby="exampleModalLabel5" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel5">Modal title</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <div class="form-group">
+                                                <label class="col-form-label">Seria:</label>
+                                                <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        v-model="driver5_passportSeries">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-form-label">Raqam:</label>
+                                                <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        v-model="driver5_passportNumber">
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="col-form-label">Pinfl:</label>
+                                                <input
+                                                        type="text"
+                                                        class="form-control"
+                                                        v-model="driver5_pinfl">
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-primary" @click="person5">Izlash
+                                                    1
+                                                </button>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!--                end modal driver 5-->
+                        </div>
+                    </section>
+
+                    <h2>Form</h2>
+
+                    <div class="clearfix">
+                        <button type="submit" id="btnSerialize" class="btn btn-primary pull-right">Yuborish</button>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Result</label>
+                        <textarea id="result" class="form-control" name="data" rows="10"></textarea>
+                    </div>
+
+                </div>
+
+            </form>
+        </div>
+    </section>
+
+
+</div>
+
+
+<!--modal-->
+
+
+{% endblock %}
+
+
+{% block JavaScript %}
+<script>
+    $(function () {
+        $("#btnSerialize").on("click", function () {
+
+            var obj = $('form').serializeJSON();
+
+
+            if (obj['applicant']['organization'] === "null") {
+                obj['applicant']['organization'] = null
+                obj['owner']['organization'] = null
+
+            }
+            if (obj['applicant']['person'] === "null") {
+                obj['applicant']['person'] = null
+                obj['owner']['person'] = null
+
+            }
+            if (obj['owner']['applicantIsOwner'] === "false") {
+                obj['owner']['applicantIsOwner'] = false
+            } else if (obj['owner']['applicantIsOwner'] === "true") {
+                obj['owner']['applicantIsOwner'] = true
+            }
+
+            if (obj['details']['driverNumberRestriction'] === "false") {
+                obj['details']['driverNumberRestriction'] = false
+            } else if (obj['details']['driverNumberRestriction'] === "true") {
+                obj['details']['driverNumberRestriction'] = true
+            }
+
+            console.log(obj)
+
+            if ('drivers' in obj) {
+                obj['drivers'][0]['relative'] = parseInt(obj['drivers'][0]['relative'])
+                obj['drivers'][1]['relative'] = parseInt(obj['drivers'][1]['relative'])
+                obj['drivers'][2]['relative'] = parseInt(obj['drivers'][2]['relative'])
+                obj['drivers'][3]['relative'] = parseInt(obj['drivers'][3]['relative'])
+                obj['drivers'][4]['relative'] = parseInt(obj['drivers'][4]['relative'])
+            }
+
+
+            obj['vehicle']['techPassport']['issueDate'] = obj['vehicle']['techPassport']['issueDate'].substring(0, 10);
+
+
+            var jsonString = JSON.stringify(obj);
+            $("#result").val(jsonString);
+        })
+    });
+</script>
+
+<script>
+    var checkInDate = new Date();
+    var dd = String(checkInDate.getDate()).padStart(2, '0');
+    var mm = String(checkInDate.getMonth() + 1).padStart(2, '0');
+    var yyyy = checkInDate.getFullYear();
+
+    checkInDate = yyyy + '-' + mm + '-' + dd;
+    $('#checkInDate').attr('min', checkInDate);
+
+
+</script>
+
+
+<script>
+    new Vue({
+        el: '#app',
+        delimiters: ["[[", "]]"],
+        data: {
+            message: 'TEST',
+            info: null,
+
+            region: null,
+            is_limit: false,
+
+            <!--START calculation -->
+            TB: 0.1,
+            TB_car: 0.1,
+            TB_truck: 0.12,
+            TB_bus: 0.12,
+            TB_other: 0.04,
+
+            KT: 1.4,
+            KT_city: 1.4,
+            KT_other: 1,
+
+            KBO: 1,
+            KBO_limit: 1,
+            KBO_unlimit: 3,
+
+            INSP: 1,
+            INSP_year: 1, // 1 yil
+            INSP_six_m: 0.7, // 6 oy
+
+            JB: 40000,
+
+            insurancePremium: null,
+            sumInsured: 40000000,
+
+            startDate: new Date().toISOString().slice(0, 10),
+            endDate: null,
+
+            shaxs: 'Jismoniy shaxs',
+            jismoniy: 'Jismoniy shaxs',
+            yuridik: 'Yuridik shaxs',
+
+            useTerritoryId: null,
+            payment_type: null,
+            applicantIsOwner: false,
+            insuredActivityType: 'Tadbirkor',
+            applicant_button: false,
+            policyStartDate: null,
+            policyEndDate: null,
+
+            <!--END calculation -->
+
+            <!-- START vehicle -->
+            techPassportSeria: 'AAF',
+            techPassportNumber: '0907431',
+            govNumber: '01L977FB',
+            bodyNumber: null,
+            engineNumber: null,
+            modelName: null,
+            issueYear: null,
+            owner: null,
+            techPassportIssueDate: null,
+            vehicleTypeId: null,
+            vehicleData: null,
+            vehicle_button: false,
+            ownerPinfl: null,
+
+            <!--END calculation -->
+
+            <!-- START person -->
+            pinfl: null,
+            passportSeries: 'AD',
+            passportNumber: '0870800',
+            lastNameLatin: null,
+            firstNameLatin: null,
+            middleNameLatin: null,
+            issuedBy: null,
+            personStartDate: null,
+            birthDate: null,
+            regionId: null,
+            districtId: null,
+            phoneNumber: null,
+            organizationPhoneNumber: null,
+            email: "info@default.loc",
+            gender: null,
+            address: null,
+            personData: null,
+            driverNumberRestriction: null,
+            <!-- END person -->
+
+
+            <!-- START organization -->
+            inn: null,
+            organizationName: null,
+            organizationAddress: null,
+            organizationData: null,
+            organization_button: false,
+            <!-- END organization -->
+
+
+            drivers_button: false,
+
+            <!-- START DriversAdd -->
+
+            driver_vip_pinfl: null,
+            driver_vip_passportSeries: null,
+            driver_vip_passportNumber: null,
+            driver_vip_lic_seria: null,
+            driver_vip_lic_number: null,
+            driver_vip_licenseIssueDate: null,
+            driver_vip_data: null,
+            driver_vip_last_name: null,
+            driver_vip_firstname: null,
+            driver_vip_middlename: null,
+            driver_vip_birthDate: null,
+            driver_vip_person_data: null,
+
+
+            driver1_pinfl: "30310870050104",
+            driver1_passportSeries: "AA",
+            driver1_passportNumber: '0155701',
+            driver1_last_name: null,
+            driver1_first_name: null,
+            driver1_middle_name: null,
+            driver1_birthDate: null,
+            driver1_lic_seria: null,
+            driver1_lic_number: null,
+            driver1_licenseIssueDate: null,
+            driver1_rlt: null,
+            driver1_data: null,
+            driver1_person_data: null,
+            driver1_issuedBy: null,
+            driver1_issueDate: null,
+
+            driver2_pinfl: "30310870050104",
+            driver2_passportSeries: "AA",
+            driver2_passportNumber: '0155701',
+            driver2_last_name: null,
+            driver2_first_name: null,
+            driver2_middle_name: null,
+            driver2_birthDate: null,
+            driver2_lic_seria: null,
+            driver2_lic_number: null,
+            driver2_licenseIssueDate: null,
+            driver2_rlt: null,
+            driver2_data: null,
+            driver2_person_data: null,
+            driver2_issuedBy: null,
+            driver2_issueDate: null,
+
+            driver3_pinfl: "30310870050104",
+            driver3_passportSeries: "AA",
+            driver3_passportNumber: '0155701',
+            driver3_last_name: null,
+            driver3_first_name: null,
+            driver3_middle_name: null,
+            driver3_birthDate: null,
+            driver3_lic_seria: null,
+            driver3_lic_number: null,
+            driver3_licenseIssueDate: null,
+            driver3_rlt: null,
+            driver3_data: null,
+            driver3_person_data: null,
+            driver3_issuedBy: null,
+            driver3_issueDate: null,
+
+            driver4_pinfl: "30310870050104",
+            driver4_passportSeries: "AA",
+            driver4_passportNumber: '0155701',
+            driver4_last_name: null,
+            driver4_first_name: null,
+            driver4_middle_name: null,
+            driver4_birthDate: null,
+            driver4_lic_seria: null,
+            driver4_lic_number: null,
+            driver4_licenseIssueDate: null,
+            driver4_rlt: null,
+            driver4_data: null,
+            driver4_person_data: null,
+            driver4_issuedBy: null,
+            driver4_issueDate: null,
+
+            driver5_pinfl: "30310870050104",
+            driver5_passportSeries: "AA",
+            driver5_passportNumber: '0155701',
+            driver5_last_name: null,
+            driver5_first_name: null,
+            driver5_middle_name: null,
+            driver5_birthDate: null,
+            driver5_lic_seria: null,
+            driver5_lic_number: null,
+            driver5_licenseIssueDate: null,
+            driver5_rlt: null,
+            driver5_data: null,
+            driver5_person_data: null,
+            driver5_issuedBy: null,
+            driver5_issueDate: null,
+
+
+            ki: '',
+            addButton: true,
+            licenseSeria: null,
+            licenseNumber: null,
+            issueDate: null,
+            pOwner: null,
+
+            drivers_response: [],
+            response_driver: null,
+
+
+            RLT: 0,
+            RLT_0: 0,
+            RLT_1: 1,
+            RLT_2: 2,
+            RLT_3: 3,
+            RLT_4: 4,
+            RLT_5: 5,
+            RLT_6: 6,
+            RLT_7: 7,
+            RLT_8: 8,
+            RLT_9: 9,
+            RLT_10: 10,
+
+            driverData: null,
+            <!-- END AddDrivers -->
+
+
+        },
+
+        methods: {
+
+            calculation: function () {
+                if (this.KT === 1.4) {
+                    this.region = 'Toshkent shahar va Toshkent viloyati'
+                    this.useTerritoryId = 1
+                } else {
+                    this.region = 'Boshqa hududlar'
+                    this.useTerritoryId = 2
+                }
+
+                if (this.KBO === 3) {
+                    this.is_limit = false
+
+                    this.driverNumberRestriction = false
+                } else {
+                    this.is_limit = true
+                    this.driverNumberRestriction = true
+                }
+
+                if (this.shaxs === this.jismoniy) {
+                    this.shaxs_status = true
+
+                } else {
+                    this.shaxs_status = false
+                }
+                this.policyStartDate = $("#checkInDate").val()
+                this.policyEndDate = $("#checkOutDate").val()
+
+                // const currentDate = this.startDate
+
+                this.vehicle_button = true
+                this.insurancePremium = this.TB * this.KT * this.KBO * this.JB * this.INSP / 100
+                this.insurancePremium = this.insurancePremium.toFixed(2) * 1000
+            },
+
+
+            vehicle: function () {
+                const get_vehicle = {
+                    "techPassportSeria": this.techPassportSeria.toUpperCase(),
+                    "techPassportNumber": this.techPassportNumber,
+                    "govNumber": this.govNumber.toUpperCase(),
+                }
+                console.log(get_vehicle)
+                const vm = this;
+                axios.post('http://195.158.9.252:1441/vehicle/', get_vehicle)
+                    .then(function (response) {
+                        data = response.data.result
+                        console.log(data.pinfl)
+                        vm.pinfl = data.pinfl;
+                        vm.modelName = data.modelName;
+                        vm.issueYear = data.issueYear;
+                        vm.engineNumber = data.engineNumber;
+                        vm.bodyNumber = data.bodyNumber;
+                        vm.owner = data.owner;
+                        vm.ownerPinfl = data.pinfl;
+                        vm.techPassportIssueDate = data.techPassportIssueDate;
+                        vm.vehicleTypeId = data.vehicleTypeId;
+
+                        vm.vehicleData = JSON.stringify(data);
+                        console.log(data)
+                        vm.applicant_button = true
+
+                    })
+                    .catch(function (error) {
+                        alert('Transport malumotlari topilmadi');
+                        console.log(error);
+                    });
+            },
+
+            <!-- START GET PERSON -->
+            person: function () {
+                const get_person = {
+                    "pinfl": this.pinfl,
+                    "passportSeries": this.passportSeries.toUpperCase(),
+                    "passportNumber": this.passportNumber,
+                }
+                console.log(get_person)
+                const vp = this;
+                axios.post('http://195.158.9.252:1441/person/', get_person)
+                    .then(function (response) {
+                        data = response.data.result
+                        console.log(data)
+                        vp.lastNameLatin = data.lastNameLatin;
+                        vp.firstNameLatin = data.firstNameLatin;
+                        vp.middleNameLatin = data.middleNameLatin;
+                        vp.issuedBy = data.issuedBy;
+                        vp.personStartDate = data.startDate;
+                        vp.birthDate = data.birthDate;
+                        vp.regionId = data.regionId;
+                        vp.districtId = data.districtId;
+                        vp.address = data.address
+
+                        vp.personData = JSON.stringify(data);
+                        vp.organization_button = true;
+
+                        if (data.gender === '1') {
+                            vp.gender = "m"
+                        } else {
+                            vp.gender = "f"
+                        }
+
+
+                    })
+                    .catch(function (error) {
+                        alert('Passport malumotlari topilmadi');
+                        console.log(error);
+                    });
+            },
+            <!-- END GET PERSON -->
+
+            <!-- START driver1 PERSON -->
+            person1: function () {
+                const get_person = {
+                    "pinfl": this.driver1_pinfl,
+                    "passportSeries": this.driver1_passportSeries.toUpperCase(),
+                    "passportNumber": this.driver1_passportNumber,
+                }
+                console.log(get_person)
+                const vp = this;
+                axios.post('http://195.158.9.252:1441/person/', get_person)
+                    .then(function (response) {
+                        data = response.data.result
+                        console.log(data)
+                        vp.driver1_last_name = data.lastNameLatin;
+                        vp.driver1_first_name = data.firstNameLatin;
+                        vp.driver1_middle_name = data.middleNameLatin;
+                        vp.driver1_issuedBy = data.issuedBy;
+                        vp.driver1_issueDate = data.startDate;
+                        vp.driver1_birthDate = data.birthDate;
+
+                        vp.driver1_license()
+
+                    })
+                    .catch(function (error) {
+                        alert('Passport malumotlari topilmadi');
+                        console.log(error);
+                    });
+            },
+            <!-- END GET PERSON -->
+
+            <!-- START driver2 PERSON -->
+            person2: function () {
+                const get_person = {
+                    "pinfl": this.driver2_pinfl,
+                    "passportSeries": this.driver2_passportSeries.toUpperCase(),
+                    "passportNumber": this.driver2_passportNumber,
+                }
+                console.log(get_person)
+                const vp = this;
+                axios.post('http://195.158.9.252:1441/person/', get_person)
+                    .then(function (response) {
+                        data = response.data.result
+                        console.log(data)
+                        vp.driver2_last_name = data.lastNameLatin;
+                        vp.driver2_first_name = data.firstNameLatin;
+                        vp.driver2_middle_name = data.middleNameLatin;
+                        vp.driver2_issuedBy = data.issuedBy;
+                        vp.driver2_issueDate = data.startDate;
+                        vp.driver2_birthDate = data.birthDate;
+
+                        vp.driver2_license()
+
+                    })
+                    .catch(function (error) {
+                        alert('Passport malumotlari topilmadi');
+                        console.log(error);
+                    });
+            },
+            <!-- END GET PERSON -->
+
+            <!-- START driver3 PERSON -->
+            person3: function () {
+                const get_person = {
+                    "pinfl": this.driver3_pinfl,
+                    "passportSeries": this.driver3_passportSeries.toUpperCase(),
+                    "passportNumber": this.driver3_passportNumber,
+                }
+                console.log(get_person)
+                const vp = this;
+                axios.post('http://195.158.9.252:1441/person/', get_person)
+                    .then(function (response) {
+                        data = response.data.result
+                        console.log(data)
+                        vp.driver3_last_name = data.lastNameLatin;
+                        vp.driver3_first_name = data.firstNameLatin;
+                        vp.driver3_middle_name = data.middleNameLatin;
+                        vp.driver3_issuedBy = data.issuedBy;
+                        vp.driver3_issueDate = data.startDate;
+                        vp.driver3_birthDate = data.birthDate;
+
+                        vp.driver3_license()
+
+                    })
+                    .catch(function (error) {
+                        alert('Passport malumotlari topilmadi');
+                        console.log(error);
+                    });
+            },
+            <!-- END GET PERSON -->
+
+            <!-- START driver4 PERSON -->
+            person4: function () {
+                const get_person = {
+                    "pinfl": this.driver4_pinfl,
+                    "passportSeries": this.driver4_passportSeries.toUpperCase(),
+                    "passportNumber": this.driver4_passportNumber,
+                }
+                console.log(get_person)
+                const vp = this;
+                axios.post('http://195.158.9.252:1441/person/', get_person)
+                    .then(function (response) {
+                        data = response.data.result
+                        console.log(data)
+                        vp.driver4_last_name = data.lastNameLatin;
+                        vp.driver4_first_name = data.firstNameLatin;
+                        vp.driver4_middle_name = data.middleNameLatin;
+                        vp.driver4_issuedBy = data.issuedBy;
+                        vp.driver4_issueDate = data.startDate;
+                        vp.driver4_birthDate = data.birthDate;
+
+                        vp.driver4_license()
+
+                    })
+                    .catch(function (error) {
+                        alert('Passport malumotlari topilmadi');
+                        console.log(error);
+                    });
+            },
+            <!-- END GET PERSON -->
+            <!-- START driver2 PERSON -->
+            person5: function () {
+                const get_person = {
+                    "pinfl": this.driver5_pinfl,
+                    "passportSeries": this.driver5_passportSeries.toUpperCase(),
+                    "passportNumber": this.driver5_passportNumber,
+                }
+                console.log(get_person)
+                const vp = this;
+                axios.post('http://195.158.9.252:1441/person/', get_person)
+                    .then(function (response) {
+                        data = response.data.result
+                        console.log(data)
+                        vp.driver5_last_name = data.lastNameLatin;
+                        vp.driver5_first_name = data.firstNameLatin;
+                        vp.driver5_middle_name = data.middleNameLatin;
+                        vp.driver5_issuedBy = data.issuedBy;
+                        vp.driver5_issueDate = data.startDate;
+                        vp.driver5_birthDate = data.birthDate;
+
+                        vp.driver5_license()
+
+                    })
+                    .catch(function (error) {
+                        alert('Passport malumotlari topilmadi');
+                        console.log(error);
+                    });
+            },
+            <!-- END GET PERSON -->
+
+            <!-- START GET ORGANIZATION -->
+            organization: function () {
+                const get_organization = {
+                    "inn": this.inn,
+                }
+                console.log(get_organization)
+                const vp = this;
+                axios.post('http://195.158.9.252:1441/organization/', get_organization)
+                    .then(function (response) {
+                        data = response.data.result
+                        console.log(data)
+                        vp.organizationName = data.name;
+                        vp.organizationAddress = data.address;
+                        vp.organizationData = JSON.stringify(data);
+                        vp.organization_button = true;
+                    })
+                    .catch(function (error) {
+                        alert('Tashkilot malumotlari topilmadi');
+                        console.log(error);
+                    });
+            },
+            <!-- END GET ORGANIZATION -->
+
+
+
+            myMethod: function (event) {
+                if (event.target.checked) {
+                    console.log("checked");
+                    this.driver_vip_pinfl = this.pinfl
+                    this.driver_vip_passportSeries = this.passportSeries
+                    this.driver_vip_passportNumber = this.passportNumber
+                } else console.log("unchecked");
+            },
+
+            myMethod_limit: function (event) {
+                if (event.target.checked) {
+                    console.log("checked");
+                    this.driver1_pinfl = this.pinfl
+                    this.driver1_passportSeries = this.passportSeries
+                    this.driver1_passportNumber = this.passportNumber
+                } else console.log("unchecked");
+            },
+
+
+            <!-- Add drivers -->
+            driver1_license: function () {
+                const get_driver = {
+                    "pinfl": this.driver1_pinfl,
+                    "passportSeries": this.driver1_passportSeries.toUpperCase(),
+                    "passportNumber": this.driver1_passportNumber,
+                }
+                console.log(get_driver)
+
+                const dl = this;
+                dl.person_for_driver(get_driver, 1);
+                axios.post('http://195.158.9.252:1441/driver_license/', get_driver)
+                    .then(function (response) {
+                        data = response.data.result;
+                        dl.driver1_data = JSON.stringify(data);
+                        dl.driver1_lic_seria = data.licenseNumber;
+                        dl.driver1_lic_number = data.licenseSeria;
+                        dl.driver1_licenseIssueDate = new Date(data.issueDate).toISOString().slice(0, 10);
+                        console.log(data);
+
+                        if (data === "null") {
+                            alert("Haydovchilik guvohnomasi ma`lumotlari topilmadi, iltimos qo`lda kiriting");
+                        }
+                        ;
+
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            },
+
+            driver2_license: function () {
+                const get_driver = {
+                    "pinfl": this.driver2_pinfl,
+                    "passportSeries": this.driver2_passportSeries.toUpperCase(),
+                    "passportNumber": this.driver2_passportNumber,
+                }
+                console.log(get_driver)
+                const dl = this;
+                dl.person_for_driver(get_driver, 2);
+                axios.post('http://195.158.9.252:1441/driver_license/', get_driver)
+                    .then(function (response) {
+                        data = response.data.result;
+                        dl.driver2_data = JSON.stringify(data);
+                        dl.driver2_lic_seria = data.licenseNumber;
+                        dl.driver2_lic_number = data.licenseSeria;
+                        dl.driver2_licenseIssueDate = new Date(data.issueDate).toISOString().slice(0, 10);
+                        console.log(data);
+
+                        if (data === "null") {
+                            alert("Haydovchilik guvohnomasi ma`lumotlari topilmadi, iltimos qo`lda kiriting");
+                        }
+                        ;
+
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            },
+
+            driver3_license: function () {
+                const get_driver = {
+                    "pinfl": this.driver3_pinfl,
+                    "passportSeries": this.driver3_passportSeries.toUpperCase(),
+                    "passportNumber": this.driver3_passportNumber,
+                }
+                console.log(get_driver)
+                const dl = this;
+                dl.person_for_driver(get_driver, 3);
+                axios.post('http://195.158.9.252:1441/driver_license/', get_driver)
+                    .then(function (response) {
+                        data = response.data.result;
+                        dl.driver3_data = JSON.stringify(data);
+                        dl.driver3_lic_seria = data.licenseNumber;
+                        dl.driver3_lic_number = data.licenseSeria;
+                        dl.driver3_licenseIssueDate = new Date(data.issueDate).toISOString().slice(0, 10);
+                        console.log(data);
+
+                        if (data === "null") {
+                            alert("Haydovchilik guvohnomasi ma`lumotlari topilmadi, iltimos qo`lda kiriting");
+                        }
+                        ;
+
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            },
+
+            driver4_license: function () {
+                const get_driver = {
+                    "pinfl": this.driver4_pinfl,
+                    "passportSeries": this.driver4_passportSeries.toUpperCase(),
+                    "passportNumber": this.driver4_passportNumber,
+                }
+                console.log(get_driver)
+                const dl = this;
+                dl.person_for_driver(get_driver, 4);
+                axios.post('http://195.158.9.252:1441/driver_license/', get_driver)
+                    .then(function (response) {
+                        data = response.data.result;
+                        dl.driver4_data = JSON.stringify(data);
+                        dl.driver4_lic_seria = data.licenseNumber;
+                        dl.driver4_lic_number = data.licenseSeria;
+                        dl.driver4_licenseIssueDate = new Date(data.issueDate).toISOString().slice(0, 10);
+                        console.log(data);
+
+                        if (data === "null") {
+                            alert("Haydovchilik guvohnomasi ma`lumotlari topilmadi, iltimos qo`lda kiriting");
+                        }
+                        ;
+
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            },
+
+            driver5_license: function () {
+                const get_driver = {
+                    "pinfl": this.driver5_pinfl,
+                    "passportSeries": this.driver5_passportSeries.toUpperCase(),
+                    "passportNumber": this.driver5_passportNumber,
+                }
+                console.log(get_driver)
+                const dl = this;
+                dl.person_for_driver(get_driver, 5);
+                axios.post('http://195.158.9.252:1441/driver_license/', get_driver)
+                    .then(function (response) {
+                        data = response.data.result;
+                        dl.driver5_data = JSON.stringify(data);
+                        dl.driver5_lic_seria = data.licenseNumber;
+                        dl.driver5_lic_number = data.licenseSeria;
+                        dl.driver5_licenseIssueDate = new Date(data.issueDate).toISOString().slice(0, 10);
+                        console.log(data);
+
+                        if (data === "null") {
+                            alert("Haydovchilik guvohnomasi ma`lumotlari topilmadi, iltimos qo`lda kiriting");
+                        }
+                        ;
+
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            },
+
+            driver_vip_license: function () {
+                const get_driver = {
+                    "pinfl": this.driver_vip_pinfl,
+                    "passportSeries": this.driver_vip_passportSeries.toUpperCase(),
+                    "passportNumber": this.driver_vip_passportNumber,
+                }
+                console.log(get_driver)
+                const dl = this;
+                dl.person_for_driver(get_driver, 0);
+                console.log(dl.driver_vip_person_data)
+                axios.post('http://195.158.9.252:1441/driver_license/', get_driver)
+                    .then(function (response) {
+                        data = response.data.result;
+                        dl.driver_vip_data = JSON.stringify(data);
+                        dl.driver_vip_lic_seria = data.licenseNumber;
+                        dl.driver_vip_lic_number = data.licenseSeria;
+                        dl.driver_vip_licenseIssueDate = new Date(data.issueDate).toISOString().slice(0, 10);
+
+                        if (data === "null") {
+                            alert("Haydovchilik guvohnomasi ma`lumotlari topilmadi, iltimos qo`lda kiriting");
+                        }
+                        ;
+
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            },
+            <!-- Add drivers -->
+
+            <!-- START GET PERSON FOR DRIVER-->
+            person_for_driver: function (get_person, driver_number) {
+                console.log('person for data ')
+                console.log(get_person)
+                const pd = this;
+                axios.post('http://195.158.9.252:1441/person/', get_person)
+                    .then(function (response) {
+                        data = response.data.result
+                        if (driver_number === 0) {
+                            pd.driver_vip_person_data = JSON.stringify(data);
+                            pd.driver_vip_last_name = data['lastNameLatin'];
+                            pd.driver_vip_firstname = data['firstNameLatin'];
+                            pd.driver_vip_middlename = data['middleNameLatin'];
+                            pd.driver_vip_birthDate = data['birthDate']
+                        } else if (driver_number === 1) {
+                            pd.driver1_person_data = JSON.stringify(data);
+                            pd.driver1_last_name = data['lastNameLatin'];
+                            pd.driver1_firstname = data['firstNameLatin'];
+                            pd.driver1_middlename = data['middleNameLatin'];
+                            pd.driver1_birthDate = data['birthDate']
+                        } else if (driver_number === 2) {
+                            pd.driver2_person_data = JSON.stringify(data);
+                            pd.driver2_last_name = data['lastNameLatin'];
+                            pd.driver2_firstname = data['firstNameLatin'];
+                            pd.driver2_middlename = data['middleNameLatin'];
+                            pd.driver2_birthDate = data['birthDate']
+                        } else if (driver_number === 3) {
+                            pd.driver3_person_data = JSON.stringify(data);
+                            pd.driver3_last_name = data['lastNameLatin'];
+                            pd.driver3_firstname = data['firstNameLatin'];
+                            pd.driver3_middlename = data['middleNameLatin'];
+                            pd.driver3_birthDate = data['birthDate']
+                        } else if (driver_number === 4) {
+                            pd.driver4_person_data = JSON.stringify(data);
+                            pd.driver4_last_name = data['lastNameLatin'];
+                            pd.driver4_firstname = data['firstNameLatin'];
+                            pd.driver4_middlename = data['middleNameLatin'];
+                            pd.driver4_birthDate = data['birthDate']
+                        } else if (driver_number === 5) {
+                            pd.driver5_person_data = JSON.stringify(data);
+                            pd.driver5_last_name = data['lastNameLatin'];
+                            pd.driver5_firstname = data['firstNameLatin'];
+                            pd.driver5_middlename = data['middleNameLatin'];
+                            pd.driver5_birthDate = data['birthDate']
+                        }
+
+                    })
+                    .catch(function (error) {
+                        alert('Passport malumotlari topilmadi');
+                        console.log(error);
+                    });
+            },
+            <!-- END GET PERSON -->
+        },
+
+
+    });
+</script>
+
+{% endblock %}

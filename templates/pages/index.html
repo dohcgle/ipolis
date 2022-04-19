@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    <title>Bosh sahifa</title>
+{% endblock %}
+
+{% block content %}
+    <section class="wrap_web_about bg-white py-0 m-0">
+        <div class="container-lg">
+            <div class="my-5 p-md-5 p-4" style="position: relative;overflow:hidden;">
+                <div class="section-title pt-5  ">
+                    <h2>Online sug'urta polislari</h2>
+                    <p>Sug'urta polislarini online xarid qiling va yuklab oling</p>
+                </div>
+                <div class="row">
+                    <div class="col-lg-4 col-sm-6 animate__animated animate__fadeInLeft">
+                        <div class="single-service  ">
+                            <img src="{% static 'assets/image/1.jpg' %}" alt="Image" class="img-fluid">
+                            <div class="service-content">
+                                <div class="icon-style">
+                                    <img class="img-fluid p-3" src="{% static 'assets/image/icons/13.png' %} " alt="">
+                                </div>
+                                <h3>Avtosug'urta</h3>
+                                <p>OSAGO – Avtofuqarolik javobgarlikni majburiy sug’urtalash</p>
+                                <a href="{% url 'contract_json' %}">
+                                    <i class="bx bx-chevrons-right"></i>Xarid qilish
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+{% endblock %}

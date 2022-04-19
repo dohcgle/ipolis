@@ -1,0 +1,70 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+    <title>Tulov</title>
+{% endblock %}
+
+{% block content %}
+
+    <section class="wrap_web_about bg-white py-0 m-0">
+        <div class="container-lg">
+            <div class="my-5 p-md-5 p-4" style="position: relative;overflow:hidden;">
+                <div class="mb-2 row">
+                    <div class="mt-5  col-lg-8 m-auto p-4 wrap_polis_asago"
+                         style=" background: url({% static 'assets/image/bg.png' %});border:2px solid #0D6E65">
+                           <div class="h5 text-center pb-3 text-uppercase">Sug'urta polisi ma'lumotlari</div>
+                        <table class="table table-striped">
+                            <tbody>
+                            <tr>
+                                <td scope="row"><b>1</b></td>
+                                <td><b>Sug'urta polisi amal qilish muddati:</b></td>
+                                <td>{{ applicant.details.startDate }} yildan {{ applicant.details.endDate }} yilgacha
+                                </td>
+                            </tr>
+                            <tr>
+                                <td scope="row"><b>2</b></td>
+                                <td><b>F.I.O.:</b></td>
+                                <td>{{ applicant.applicant.person.fullName.firstname }}
+                                    {{applicant.applicant.person.fullName.lastname }}
+                                    {{ applicant.applicant.person.fullName.middlename }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td scope="row"><b>3</b></td>
+                                <td><b>Pasport seriya raqam:</b></td>
+                                <td>{{ applicant.applicant.person.passportData.seria }}
+                                    {{ applicant.applicant.person.passportData.number }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td scope="row"><b>4</b></td>
+                                <td><b>Davlat raqami:</b></td>
+                                <td>{{ applicant.vehicle.govNumber }}</td>
+                            </tr>
+                            <tr>
+                                <td scope="row"><b>5</b></td>
+                                <td><b>Sug'urta mukofoti:</b></td>
+                                <td>{{ applicant.cost.insurancePremium }} sum</td>
+                            </tr>
+                            <tr>
+                                <td scope="row"><b>6</b></td>
+                                <td><b>Sug'urta javobgarligi: </b></td>
+                                <td>{{ applicant.cost.sumInsured }} sum</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <!--END AddDrivers -->
+                <div class="row">
+                    <div class="col-lg-8 p-0 m-auto mt-3">
+                         <a class="btn btn-success w-100 p-3" href="{{ payme_url }}">To'lovni amalga oshirish</a>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+{% endblock %}

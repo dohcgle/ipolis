@@ -1,0 +1,94 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title %}
+<title>Detail</title>
+{% endblock %}
+
+{% block content %}
+
+<section class="wrap_web_about bg-white py-0 m-0" >
+    <div class="container-lg">
+        <div class="my-5 p-md-5 p-4" style="position: relative;overflow:hidden;">
+            <div class="row">
+                <div class="col-md-8 m-auto">
+                    <div class="my-5 p-4 wrap_polis_asago"
+                         style=" background: url({% static 'assets/image/bg.png' %});border:2px solid #0D6E65">
+                        <div class="h5 text-center pb-3 text-uppercase">To'lov muvaffaqiyatli amalga oshirildi polisni olish uchun quyidagi tugmani bosing</div>
+
+
+                <form id="baxtsiz_hodisa" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-success p-3 w-100" name="submit" id="policy_submit"  >Polisni olish</button>
+                </form>
+
+
+
+
+                <div id="policy_box" class="d-none  ">
+                    <table class="table table-striped">
+                            <tbody>
+                            <tr>
+                                <td scope="row"><b>1</b></td>
+                                <td><b>Sug'urta polisi seriyasi:</b></td>
+                                <td><p id="policy_seria" class="m-0"> </p>  </td>
+                            </tr>
+                            <tr>
+                                <td scope="row"><b>2</b></td>
+                                <td><b>Sug'urta polisi  raqami:</b></td>
+                                <td>   <p id="policy_number"  class="m-0"></p></td>
+                            </tr>
+                            <tr>
+                                <td scope="row"><b>3</b></td>
+                                <td><b>Sug'urta polisni yuklab olish:</b></td>
+                                <td>  <a id="download">Yuklab olish</a></td>
+                            </tr>
+
+                            </tbody>
+                        </table>
+
+
+
+
+                </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+            <!--END AddDrivers -->
+
+        </div>
+
+    </div>
+
+</section>
+{% endblock %}
+
+
+{% block JavaScript %}
+<!-- BH START -->
+<script>
+    $('#baxtsiz_hodisa').on('submit', function (e) {
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: "{% url 'ajax_posting' %}",
+            data: {
+                slug: '{{ slug }}',
+                csrfmiddlewaretoken: '{{ csrf_token }}',
+                dataType: "json",
+            },
+            success: function (data) {
+                document.getElementById("policy_seria").innerHTML = data['policy_seria'];
+                document.getElementById("policy_number").innerHTML = data['policy_number'];
+               $("#policy_box").removeClass("d-none");
+               $("#policy_submit").addClass("d-none");
+               $("#download").attr("href", data['policy_url'])
+                // console.log(data);
+            },
+        });
+
+    });
+</script>
+{% endblock %}

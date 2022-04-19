@@ -1,0 +1,98 @@
+{
+  "applicant": {
+    "person": {
+      "passportData": {
+        "pinfl": "31002873680015",
+        "seria": "AA",
+        "number": "0046530",
+        "issuedBy": "\u0422\u041e\u0428\u041a\u0415\u041d\u0422 \u0428\u0410\u04b2\u0410\u0420 \u042e\u041d\u0423\u0421\u041e\u0411\u041e\u0414 \u0422\u0423\u041c\u0410\u041d\u0418 \u0418\u0418\u0411",
+        "issueDate": "2012-02-10"
+      },
+      "fullName": {
+        "firstname": "ULUGBEK",
+        "lastname": "TAYLAKOV",
+        "middlename": "NORBEKOVICH"
+      },
+      "phoneNumber": "998974221902",
+      "gender": "m",
+      "birthDate": "1987-02-10",
+      "regionId": "10",
+      "districtId": "1010"
+    },
+    "organization": null,
+    "address": "\u049a\u040e\u0428\u0427\u0418\u041d\u041e\u0420 \u041c\u0424\u0419, 5 \u041c\u0410\u0412\u0417\u0415,  uy:3\u0410 xonadon:34",
+    "email": "utn1002@gmail.com"
+  },
+  "owner": {
+    "person": {
+      "passportData": {
+        "pinfl": "31002873680015",
+        "seria": "AA",
+        "number": "0046530",
+        "issuedBy": "\u0422\u041e\u0428\u041a\u0415\u041d\u0422 \u0428\u0410\u04b2\u0410\u0420 \u042e\u041d\u0423\u0421\u041e\u0411\u041e\u0414 \u0422\u0423\u041c\u0410\u041d\u0418 \u0418\u0418\u0411",
+        "issueDate": "2012-02-10"
+      },
+      "fullName": {
+        "firstname": "ULUGBEK",
+        "lastname": "TAYLAKOV",
+        "middlename": "NORBEKOVICH"
+      }
+    },
+    "organization": null,
+    "applicantIsOwner": true
+  },
+  "details": {
+    "issueDate": "2022-01-25",
+    "startDate": "2022-01-25",
+    "endDate": "2022-01-25",
+    "driverNumberRestriction": true,
+    "specialNote": "Qayta berish",
+    "insuredActivityType": "Tadbirkor"
+  },
+  "cost": {
+    "discountId": "0",
+    "discountSum": "0",
+    "insurancePremium": "168000",
+    "sumInsured": "40000000",
+    "contractTermConclusionId": "1",
+    "useTerritoryId": "1",
+    "commission": "10000",
+    "insurancePremiumPaidToInsurer": "28000",
+    "seasonalInsuranceId": "1"
+  },
+  "vehicle": {
+    "techPassport": {
+      "number": "1339669",
+      "seria": "AAF",
+      "issueDate": "2019-11-08"
+    },
+    "modelCustomName": "LACETTI",
+    "engineNumber": "B15D211192822DFEX0363",
+    "typeId": "1",
+    "issueYear": "1",
+    "govNumber": "01X622GB",
+    "bodyNumber": "XWB5V31BDKA578285",
+    "regionId": "10"
+  },
+  "drivers": [
+    {
+      "passportData": {
+        "pinfl": "31002873680015",
+        "seria": "AA",
+        "number": "0046530",
+        "issuedBy": "\u0422\u041e\u0428\u041a\u0415\u041d\u0422 \u0428\u0410\u04b2\u0410\u0420 \u042e\u041d\u0423\u0421\u041e\u0411\u041e\u0414 \u0422\u0423\u041c\u0410\u041d\u0418 \u0418\u0418\u0411",
+        "issueDate": "2021-09-29"
+      },
+      "fullName": {
+        "firstname": "ULUGBEK",
+        "lastname": "TAYLAKOV",
+        "middlename": "NORBEKOVICH"
+      },
+      "licenseNumber": "125678",
+      "licenseSeria": "AD",
+      "relative": 0,
+      "birthDate": "1987-02-10",
+      "licenseIssueDate": "2021-09-29"
+    }
+  ]
+}
